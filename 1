@@ -1,0 +1,49 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class Property {
+    public static void main(String[] args) {
+
+
+        try {
+            File file = new File("property.html");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+            StringBuffer sb = new StringBuffer();
+            sb.append("<!DOCTYPE html>")
+            .append("<head>")
+                    .append("<meta charset = 'UTF-8'>")
+                    .append("<title>자바 환경정보</title>")
+                    .append("<style>")
+                    .append("table { border-collapse: collapse; width: 100%; }")
+                    .append("th, td { border: 1px solid #000; }")
+                    .append("</style>").append("</head>")
+                    .append("<body>")
+                    .append("<h1>자바 환경정보</h1>")
+                    .append("<table>")
+                    .append("<thead>")
+                    .append("<tr>")
+                    .append("<th>키</th>").append("<th></th>")
+                    .append("</tr>")
+                    .append("</thead>")
+                    .append("<tobody>");
+
+            for (Object k : System.getProperties().keySet()) {
+                String key = k.toString();
+                String value = System.getProperty(key);
+
+                sb.append("<tr>")
+                        .append("<td>" + key + "</td>")
+                        .append("<td>" + value + "</td>").append("</tr>");
+            }
+
+            sb.append("</tobody>") .append("</table>").append("</body>");
+
+            writer.write(sb.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
